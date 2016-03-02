@@ -9,33 +9,46 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.anthony.todolists.MainActivity"
-    tools:showIn="@layout/activity_main">
+    tools:context="com.example.anthony.todolists.ListDetail"
+    tools:showIn="@layout/activity_list_detail">
 
-    
+    <Button
+        android:id="@+id/list_details_back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/back_btn"
+        android:adjustViewBounds="true"
+        android:maxWidth="10dp"
+        android:maxHeight="10dp"
+        android:scaleType="fitCenter"
+        android:layout_marginLeft="3dp"
+        android:layout_alignBottom="@+id/list_details_empty_list_notes"
+        android:layout_alignEnd="@+id/list_details_header"
+        android:layout_marginEnd="315dp"
+        android:layout_marginBottom="35dp" />
+
     <TextView
-        android:id="@+id/main_act_title"
+        android:id="@+id/list_details_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/title"
+        android:text="@string/list_details_title"
         android:textSize="22sp"
         android:textStyle="bold"
-        android:gravity="center_vertical|center_horizontal"
-        />
+        android:gravity="center_vertical|center_horizontal"/>
 
     <TextView
-        android:id="@+id/main_act_empty_list_notes"
+        android:id="@+id/list_details_empty_list_notes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/empty_list_text"
-        android:layout_below="@id/main_act_title"
+        android:layout_below="@id/list_details_header"
         android:visibility="visible"/>
 
     <ListView
-        android:id="@+id/main_act_listview"
+        android:id="@+id/list_details_listview"
         android:layout_width="wrap_content"
         android:layout_height="430dp"
-        android:layout_below="@+id/main_act_title"></ListView>
+        android:layout_below="@+id/list_details_header"></ListView>
 
     <LinearLayout
         android:id="@+id/input_linear_layout"
@@ -47,9 +60,11 @@
 
 
         <EditText
-            android:id="@+id/main_act_edit_text"
+            android:id="@+id/list_details_edit_text"
             android:layout_width="300dp"
             android:layout_height="45dp"
             />
+
     </LinearLayout>
+
 </RelativeLayout>
