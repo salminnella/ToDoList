@@ -41,6 +41,9 @@ public class ListDetail extends AppCompatActivity {
         setOnItemLongClickListener();
 
 
+        
+
+
     }
 
     private void initViews() {
