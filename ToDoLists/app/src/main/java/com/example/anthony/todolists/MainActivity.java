@@ -103,6 +103,10 @@ public class MainActivity extends AppCompatActivity {
                 String positionName = (String) mAdapter.getItem(position);
                 mAdapter.remove(positionName);
                 mAdapter.notifyDataSetChanged();
+                if (mTodoList.size() == 0) {
+                    emptyListMessage.setVisibility(View.VISIBLE);
+                    mListView.setVisibility(View.INVISIBLE);
+                }
                 return false;
             }
         });
