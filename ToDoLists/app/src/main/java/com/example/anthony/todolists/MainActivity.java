@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -70,14 +71,19 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                emptyListMessage.setVisibility(View.INVISIBLE);
-                mListView.setVisibility(View.VISIBLE);
+                if (inputText.getText().toString().equals("")) {
+                    Toast.makeText(MainActivity.this, "Please fill out the field to add something to the list", Toast.LENGTH_SHORT).show();
+                } else {
+                    emptyListMessage.setVisibility(View.INVISIBLE);
+                    mListView.setVisibility(View.VISIBLE);
 
-                String newTodo = inputText.getText().toString();
-                mAdapter.add(newTodo);
-                mAdapter.notifyDataSetChanged();
+                    String newTodo = inputText.getText().toString();
+                    mAdapter.add(newTodo);
+                    mAdapter.notifyDataSetChanged();
 
-                inputText.setText("");
+                    inputText.setText("");
+                }
+
             }
         });
     }

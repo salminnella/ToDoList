@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">ToDoLists</string>
     <string name="action_settings">Settings</string>
-    <string name="empty_list_text">Your ToDo List Is Empty. Click The Add Button Below To Get Started</string>
+    <string name="main_act_empty_text">Your ToDo List Is Empty.\n Click The Add Button Below To Get Started</string>
+    <string name="list_detail_empty_text">There Are No Items In This ToDo List \n Click The Add Button Below To Get Started</string>
     <string name="title">My ToDo Lists</string>
     <string name="list_details_title_list_name">\"todolist-name\"&#160;</string>
     <string name="list_details_title">Items</string>
     <string name="title_activity_list_detail">ListDetail</string>
+    <string name="new_list_hint">Enter New ToDo List</string>
 </resources>

@@ -27,9 +27,12 @@
         android:id="@+id/main_act_empty_list_notes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/empty_list_text"
+        android:text="@string/main_act_empty_text"
         android:layout_below="@id/main_act_title"
-        android:visibility="visible"/>
+        android:visibility="visible"
+        android:layout_marginTop="8dp"
+        android:textAlignment="center"
+        android:layout_centerInParent="true"/>
 
     <ListView
         android:id="@+id/main_act_listview"
@@ -50,6 +53,7 @@
             android:id="@+id/main_act_edit_text"
             android:layout_width="300dp"
             android:layout_height="45dp"
+            android:hint="@string/new_list_hint"
             />
     </LinearLayout>
 </RelativeLayout>

@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -51,7 +52,7 @@ public class ListDetail extends AppCompatActivity {
 
     private void initViews() {
         fab = (FloatingActionButton) findViewById(R.id.list_details_fab);
-        //backButton = (Button) findViewById(R.id.list_details_back_button);
+        backButton = (Button) findViewById(R.id.list_details_back_button);
         emptyListMessage = (TextView) findViewById(R.id.list_details_empty_list_notes);
         inputText = (EditText) findViewById(R.id.list_details_edit_text);
         mListView = (ListView) findViewById(R.id.list_details_listview);
@@ -68,21 +69,25 @@ public class ListDetail extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                emptyListMessage.setVisibility(View.INVISIBLE);
-                String newToDoItem = inputText.getText().toString();
-                mToDoItems.add(newToDoItem);
-                mArrayAdapter.notifyDataSetChanged();
+                if (inputText.getText().toString().equals("")) {
+                    Toast.makeText(ListDetail.this, "Please fill out the field to add something to the list", Toast.LENGTH_SHORT).show();
+                } else {
+                    emptyListMessage.setVisibility(View.INVISIBLE);
+                    String newToDoItem = inputText.getText().toString();
+                    mToDoItems.add(newToDoItem);
+                    mArrayAdapter.notifyDataSetChanged();
+                    inputText.setText("");
+                }
 
-                inputText.setText("");
             }
         });
 
-//        backButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void setOnItemClickListener() {

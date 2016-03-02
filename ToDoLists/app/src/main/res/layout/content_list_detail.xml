@@ -12,6 +12,12 @@
     tools:context="com.example.anthony.todolists.ListDetail"
     tools:showIn="@layout/activity_list_detail">
 
+    <Button
+        android:id="@+id/list_details_back_button"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:background="@drawable/back_btn"/>
+
 
     <LinearLayout
         android:id="@+id/header_layout"
@@ -19,6 +25,9 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_horizontal">
+
+
+
 
         <TextView
             android:id="@+id/list_details_header_todo_list_name"
@@ -44,9 +53,12 @@
         android:id="@+id/list_details_empty_list_notes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/empty_list_text"
+        android:text="@string/list_detail_empty_text"
         android:layout_below="@id/header_layout"
-        android:visibility="visible"/>
+        android:visibility="visible"
+        android:layout_marginTop="8dp"
+        android:textAlignment="center"
+        android:layout_centerInParent="true"/>
 
     <ListView
         android:id="@+id/list_details_listview"
