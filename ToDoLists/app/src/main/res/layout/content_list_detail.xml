@@ -12,43 +12,48 @@
     tools:context="com.example.anthony.todolists.ListDetail"
     tools:showIn="@layout/activity_list_detail">
 
-    <Button
-        android:id="@+id/list_details_back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/back_btn"
-        android:adjustViewBounds="true"
-        android:maxWidth="10dp"
-        android:maxHeight="10dp"
-        android:scaleType="fitCenter"
-        android:layout_marginLeft="3dp"
-        android:layout_alignBottom="@+id/list_details_empty_list_notes"
-        android:layout_alignEnd="@+id/list_details_header"
-        android:layout_marginEnd="315dp"
-        android:layout_marginBottom="35dp" />
 
-    <TextView
-        android:id="@+id/list_details_header"
+    <LinearLayout
+        android:id="@+id/header_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/list_details_title"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:gravity="center_vertical|center_horizontal"/>
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/list_details_header_todo_list_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/list_details_title_list_name"
+            android:textSize="22sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/list_details_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/list_details_title"
+            android:textSize="22sp"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+
 
     <TextView
         android:id="@+id/list_details_empty_list_notes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/empty_list_text"
-        android:layout_below="@id/list_details_header"
+        android:layout_below="@id/header_layout"
         android:visibility="visible"/>
 
     <ListView
         android:id="@+id/list_details_listview"
         android:layout_width="wrap_content"
         android:layout_height="430dp"
-        android:layout_below="@+id/list_details_header"></ListView>
+        android:layout_below="@+id/header_layout"
+        android:layout_marginTop="20dp"></ListView>
 
     <LinearLayout
         android:id="@+id/input_linear_layout"

@@ -28,6 +28,8 @@ public class ListDetail extends AppCompatActivity {
     ArrayList<String> mToDoItems;
     ArrayAdapter<String> mArrayAdapter;
 
+    String todoListName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +51,7 @@ public class ListDetail extends AppCompatActivity {
 
     private void initViews() {
         fab = (FloatingActionButton) findViewById(R.id.list_details_fab);
-        backButton = (Button) findViewById(R.id.list_details_back_button);
+        //backButton = (Button) findViewById(R.id.list_details_back_button);
         emptyListMessage = (TextView) findViewById(R.id.list_details_empty_list_notes);
         inputText = (EditText) findViewById(R.id.list_details_edit_text);
         mListView = (ListView) findViewById(R.id.list_details_listview);
@@ -75,12 +77,12 @@ public class ListDetail extends AppCompatActivity {
             }
         });
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+//        backButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
     }
 
     private void setOnItemClickListener() {

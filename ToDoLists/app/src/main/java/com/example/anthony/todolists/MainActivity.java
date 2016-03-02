@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 emptyListMessage.setVisibility(View.INVISIBLE);
-                //toDoListHeader.setVisibility(View.VISIBLE);
+                mListView.setVisibility(View.VISIBLE);
 
                 String newTodo = inputText.getText().toString();
                 mAdapter.add(newTodo);
@@ -89,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // this will go to the next activity with the new list
                 Intent intent = new Intent(MainActivity.this, ListDetail.class);
+                String todoListName = (String) mAdapter.getItem(position).toString();
+                intent.putExtra(todoListName, 0);
                 startActivityForResult(intent, SELECT_TODO_LIST);
 
             }
