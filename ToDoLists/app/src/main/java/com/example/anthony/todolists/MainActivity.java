@@ -18,6 +18,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG_MAIN = "MainActivity";
+    public static final int SELECT_TODO_LIST = 10;
+
     ListView mListView;
     ArrayAdapter mAdapter;
     FloatingActionButton fab;
@@ -87,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // this will go to the next activity with the new list
                 Intent intent = new Intent(MainActivity.this, ListDetail.class);
-                startActivity(intent);
+                startActivityForResult(intent, SELECT_TODO_LIST);
 
             }
         });
@@ -104,5 +106,15 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //confirm the request being responded too
+        if (requestCode == SELECT_TODO_LIST) {
+            if (resultCode == RESULT_OK) {
+                //do something
+            }
+
+        }
     }
 }

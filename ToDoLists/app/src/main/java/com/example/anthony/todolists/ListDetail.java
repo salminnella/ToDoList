@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 public class ListDetail extends AppCompatActivity {
     public static final String TAG_DETAILS = "ListDetail";
+    //public static final String REQUEST_CODE =
 
     FloatingActionButton fab;
     Button backButton;
@@ -77,8 +78,7 @@ public class ListDetail extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ListDetail.this, MainActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
     }
