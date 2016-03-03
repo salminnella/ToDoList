@@ -95,17 +95,11 @@ public class MainActivity extends AppCompatActivity {
                 String todoListName = mAdapter.getItem(position).toString();
                 Intent intent = new Intent(MainActivity.this, ListDetail.class);
                 intent.putExtra(TODO_LIST_NAME, todoListName);
-                Bundle bundle = new Bundle();
                 if (!mListItems.isEmpty()) {
                     ArrayList<String> todolist = mListItems.get(0);
-                    intent.putExtra("listItems", todolist);
+                    intent.putExtra("listItems", todolist);  //TODO: make constant and clarify
                 }
-                    //bundle.putStringArrayList("listItems", todolist);
-                    //intent.putExtra("listItems", mListItems);
                     startActivityForResult(intent, SELECT_TODO_LIST);
-
-
-
             }
         });
     }
@@ -133,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 data.getExtras();
                 Bundle extras = data.getExtras();
-                mListItems.add(extras.getStringArrayList("listName"));
+                mListItems.add(extras.getStringArrayList("listName")); //TODO: make constant and clarify
 
             }
 

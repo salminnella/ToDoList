@@ -48,7 +48,13 @@ public class ListDetail extends AppCompatActivity {
         Intent intent = getIntent();
         todoListName = intent.getStringExtra(TODO_LIST_NAME);
         titleListName.setText(todoListName);
-
+        if (intent.hasExtra("listItems")) {
+            ArrayList<String> getItems = new ArrayList<>();
+            //mToDoItems = intent.getStringArrayListExtra("listItems");
+            getItems = intent.getStringArrayListExtra("listItems");
+            mToDoItems.addAll(getItems);
+            mArrayAdapter.notifyDataSetChanged();
+        }
 
 
 
