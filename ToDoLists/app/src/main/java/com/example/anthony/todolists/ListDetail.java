@@ -3,7 +3,6 @@ package com.example.anthony.todolists;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -19,17 +18,17 @@ import java.util.ArrayList;
 
 public class ListDetail extends AppCompatActivity {
     public static final String TAG_DETAILS = "ListDetail";
-    //public static final String REQUEST_CODE =
+    public static final String TODO_LIST_NAME = "listName";
 
     FloatingActionButton fab;
     Button backButton;
     TextView emptyListMessage;
+    TextView titleListName;
     EditText inputText;
+    String todoListName;
     ListView mListView;
     ArrayList<String> mToDoItems;
     ArrayAdapter<String> mArrayAdapter;
-
-    String todoListName;
 
 
     @Override
@@ -44,8 +43,12 @@ public class ListDetail extends AppCompatActivity {
         setOnItemClickListener();
         setOnItemLongClickListener();
 
+        //get the intent extra...
+        Intent intent = getIntent();
+        todoListName = intent.getStringExtra(TODO_LIST_NAME);
+        titleListName.setText(todoListName);
 
-        
+
 
 
     }
@@ -54,6 +57,7 @@ public class ListDetail extends AppCompatActivity {
         fab = (FloatingActionButton) findViewById(R.id.list_details_fab);
         backButton = (Button) findViewById(R.id.list_details_back_button);
         emptyListMessage = (TextView) findViewById(R.id.list_details_empty_list_notes);
+        titleListName = (TextView) findViewById(R.id.list_details_header_todo_list_name);
         inputText = (EditText) findViewById(R.id.list_details_edit_text);
         mListView = (ListView) findViewById(R.id.list_details_listview);
         //instantiate arraylist

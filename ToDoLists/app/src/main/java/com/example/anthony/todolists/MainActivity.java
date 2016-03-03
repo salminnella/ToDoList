@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TAG_MAIN = "MainActivity";
     public static final int SELECT_TODO_LIST = 10;
+    public static final String TODO_LIST_NAME = "listName";
 
     ListView mListView;
     ArrayAdapter mAdapter;
@@ -51,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         mListView = (ListView) findViewById(R.id.main_act_listview);
         inputText = (EditText) findViewById(R.id.main_act_edit_text);
         emptyListMessage = (TextView) findViewById(R.id.main_act_empty_list_notes);
-        //toDoListHeader = (TextView) findViewById(R.id.main_act_title);
 
         //instantiate array list
         mTodoList = new ArrayList<>(); // maybe set this to 40 or so to save mem on it doubling
@@ -94,9 +94,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // this will go to the next activity with the new list
+                String todoListName = mAdapter.getItem(position).toString();
                 Intent intent = new Intent(MainActivity.this, ListDetail.class);
-                String todoListName = (String) mAdapter.getItem(position).toString();
-                intent.putExtra(todoListName, 0);
+                intent.putExtra(TODO_LIST_NAME, todoListName);
                 startActivityForResult(intent, SELECT_TODO_LIST);
 
             }
