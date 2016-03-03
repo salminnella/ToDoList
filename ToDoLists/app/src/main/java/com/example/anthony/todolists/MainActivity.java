@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -30,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     //TextView toDoListHeader;
 
     ArrayList<String> mTodoList;
-    ArrayList<String> mListItems;
+    ArrayList<ArrayList<String>> mListItems;
 
 
     @Override
@@ -55,8 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         //instantiate array list
         mTodoList = new ArrayList<>(); // maybe set this to 40 or so to save mem on it doubling
-        //TODO: doesn't look like i need this one
-        //mListItems = new ArrayList<>();
+        mListItems = new ArrayList<>();
 
         //instantiate adapter
         mAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, mTodoList);
@@ -97,7 +95,16 @@ public class MainActivity extends AppCompatActivity {
                 String todoListName = mAdapter.getItem(position).toString();
                 Intent intent = new Intent(MainActivity.this, ListDetail.class);
                 intent.putExtra(TODO_LIST_NAME, todoListName);
-                startActivityForResult(intent, SELECT_TODO_LIST);
+                Bundle bundle = new Bundle();
+                if (!mListItems.isEmpty()) {
+                    ArrayList<String> todolist = mListItems.get(0);
+                    intent.putExtra("listItems", todolist);
+                }
+                    //bundle.putStringArrayList("listItems", todolist);
+                    //intent.putExtra("listItems", mListItems);
+                    startActivityForResult(intent, SELECT_TODO_LIST);
+
+
 
             }
         });
@@ -126,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 data.getExtras();
                 Bundle extras = data.getExtras();
-                mListItems = extras.getStringArrayList("listName");
+                mListItems.add(extras.getStringArrayList("listName"));
 
             }
 
