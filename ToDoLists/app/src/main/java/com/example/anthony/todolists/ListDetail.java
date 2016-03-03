@@ -19,6 +19,7 @@ import java.util.ArrayList;
 public class ListDetail extends AppCompatActivity {
     public static final String TAG_DETAILS = "ListDetail";
     public static final String TODO_LIST_NAME = "listName";
+    public static final int SELECT_TODO_LIST = 10;
 
     FloatingActionButton fab;
     Button backButton;
@@ -60,10 +61,13 @@ public class ListDetail extends AppCompatActivity {
         titleListName = (TextView) findViewById(R.id.list_details_header_todo_list_name);
         inputText = (EditText) findViewById(R.id.list_details_edit_text);
         mListView = (ListView) findViewById(R.id.list_details_listview);
+
         //instantiate arraylist
         mToDoItems = new ArrayList<>(); // maybe set this to 40 or so to save mem from it doubling
+
         //instantiate adapter
         mArrayAdapter = new ArrayAdapter<String>(ListDetail.this, android.R.layout.simple_list_item_1, mToDoItems);
+
         //set the adapter to the list
         mListView.setAdapter(mArrayAdapter);
 
@@ -89,6 +93,11 @@ public class ListDetail extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intentToMain = new Intent();
+                Bundle bundle = new Bundle();
+                bundle.putStringArrayList("listName", mToDoItems);
+                intentToMain.putExtras(bundle);
+                setResult(RESULT_OK, intentToMain);
                 finish();
             }
         });

@@ -124,7 +124,10 @@ public class MainActivity extends AppCompatActivity {
         //confirm the request being responded too
         if (requestCode == SELECT_TODO_LIST) {
             if (resultCode == RESULT_OK) {
-                //do something
+                data.getExtras();
+                Bundle extras = data.getExtras();
+                mListItems = extras.getStringArrayList("listName");
+
             }
 
         }
