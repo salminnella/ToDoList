@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,16 +17,15 @@ import java.util.ArrayList;
 
 public class ListDetail extends AppCompatActivity {
     public static final String TAG_DETAILS = "ListDetail";
-    public static final String TODO_LIST_NAME = "listName";
-    public static final int SELECT_TODO_LIST = 10;
 
-    FloatingActionButton fab;
-    Button backButton;
+    int toDoListIndex;
     TextView emptyListMessage;
     TextView titleListName;
     EditText inputText;
     String todoListName;
     ListView mListView;
+    FloatingActionButton fab;
+    Button backButton;
     ArrayList<String> mToDoItems;
     ArrayAdapter<String> mArrayAdapter;
 
@@ -36,27 +34,14 @@ public class ListDetail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_detail);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
 
         initViews();
         setOnClickListeners();
         setOnItemClickListener();
         setOnItemLongClickListener();
-
-        //get the intent extra...
-        Intent intent = getIntent();
-        todoListName = intent.getStringExtra(TODO_LIST_NAME);
-        titleListName.setText(todoListName);
-        if (intent.hasExtra("listItems")) {
-            ArrayList<String> getItems = new ArrayList<>();
-            //mToDoItems = intent.getStringArrayListExtra("listItems");
-            getItems = intent.getStringArrayListExtra("listItems");
-            mToDoItems.addAll(getItems);
-            mArrayAdapter.notifyDataSetChanged();
-        }
-
-
+        receiveIntentData();
 
     }
 
@@ -84,7 +69,7 @@ public class ListDetail extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (inputText.getText().toString().equals("")) {
-                    Toast.makeText(ListDetail.this, "Please fill out the field to add something to the list", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ListDetail.this, R.string.empty_editText_error_message, Toast.LENGTH_SHORT).show();
                 } else {
                     emptyListMessage.setVisibility(View.INVISIBLE);
                     String newToDoItem = inputText.getText().toString();
@@ -99,12 +84,7 @@ public class ListDetail extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentToMain = new Intent();
-                Bundle bundle = new Bundle();
-                bundle.putStringArrayList("listName", mToDoItems);
-                intentToMain.putExtras(bundle);
-                setResult(RESULT_OK, intentToMain);
-                finish();
+                returnIntentData();
             }
         });
     }
@@ -131,4 +111,32 @@ public class ListDetail extends AppCompatActivity {
         });
     }
 
+    private void receiveIntentData() {
+        Intent intent = getIntent();
+        //todoListName = intent.getStringExtra(MainActivity.TODO_LIST_NAME);
+        titleListName.setText(intent.getStringExtra(MainActivity.TODO_LIST_NAME));
+        if (intent.hasExtra(MainActivity.TODO_LIST_ITEMS)) {
+
+            emptyListMessage.setVisibility(View.INVISIBLE);
+            mListView.setVisibility(View.VISIBLE);
+
+            ArrayList<String> getTheListItems = intent.getStringArrayListExtra(MainActivity.TODO_LIST_ITEMS);
+            //mToDoItems = intent.getStringArrayListExtra("listItems");
+            //getTheListItems = intent.getStringArrayListExtra(MainActivity.TODO_LIST_ITEMS);
+            //TODO: clear all then add all to not dupe the list
+            mToDoItems.addAll(getTheListItems);
+            mArrayAdapter.notifyDataSetChanged();
+
+        }
+
+        toDoListIndex = intent.getIntExtra(MainActivity.LIST_ITEMS_INDEX, -1);
+    }
+
+    private void returnIntentData() {
+        Intent intentToMain = new Intent();
+        intentToMain.putStringArrayListExtra(MainActivity.TODO_LIST_ITEMS, mToDoItems);
+        intentToMain.putExtra(MainActivity.LIST_ITEMS_INDEX, toDoListIndex);
+        setResult(RESULT_OK, intentToMain);
+        finish();
+    }
 }

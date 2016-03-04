@@ -17,10 +17,13 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String TAG_MAIN = "MainActivity";
-    public static final int SELECT_TODO_LIST = 10;
+    private static final String TAG_MAIN = "MainActivity";
+    private static final int SELECTED_TODO_LIST = 10;
     public static final String TODO_LIST_NAME = "listName";
+    public static final String TODO_LIST_ITEMS = "listItems";
+    public static final String LIST_ITEMS_INDEX = "listIndex";
 
+    int listIndex;
     ListView mListView;
     ArrayAdapter mAdapter;
     FloatingActionButton fab;
@@ -95,11 +98,22 @@ public class MainActivity extends AppCompatActivity {
                 String todoListName = mAdapter.getItem(position).toString();
                 Intent intent = new Intent(MainActivity.this, ListDetail.class);
                 intent.putExtra(TODO_LIST_NAME, todoListName);
-                if (!mListItems.isEmpty()) {
-                    ArrayList<String> todolist = mListItems.get(0);
-                    intent.putExtra("listItems", todolist);  //TODO: make constant and clarify
+                listIndex = mTodoList.indexOf(todoListName);
+                intent.putExtra(LIST_ITEMS_INDEX, listIndex);
+
+                if (mTodoList.contains(todoListName)) {
+                    if (!mListItems.isEmpty()) {
+                        //mListItems.contains(String.valueOf(listIndex))
+                        //mListItems.get(position).equals(listIndex)
+                        //position == listIndex
+                        if (listIndex <= mListItems.size() - 1) {
+                            ArrayList<String> todolist = mListItems.get(position);
+                            intent.putExtra(TODO_LIST_ITEMS, todolist);
+                        }
+                    }
                 }
-                    startActivityForResult(intent, SELECT_TODO_LIST);
+
+                startActivityForResult(intent, SELECTED_TODO_LIST);
             }
         });
     }
@@ -123,12 +137,19 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //confirm the request being responded too
-        if (requestCode == SELECT_TODO_LIST) {
+        if (requestCode == SELECTED_TODO_LIST) {
             if (resultCode == RESULT_OK) {
-                data.getExtras();
-                Bundle extras = data.getExtras();
-                mListItems.add(extras.getStringArrayList("listName")); //TODO: make constant and clarify
+                ArrayList<String> receiveList = data.getStringArrayListExtra(TODO_LIST_ITEMS);
+                int listIndex = data.getIntExtra(LIST_ITEMS_INDEX, -1);  //TODO the listIndex isn't coming back correctly - wrong #
 
+                //mListItems.isEmpty()
+                //!mListItems.contains(listIndex)
+                if (listIndex >= mListItems.size()) {
+                    mListItems.add(receiveList);
+                } else {
+                    mListItems.set(listIndex, receiveList);
+
+                }
             }
 
         }
