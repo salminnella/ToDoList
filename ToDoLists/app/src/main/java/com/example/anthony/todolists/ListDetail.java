@@ -1,14 +1,16 @@
 package com.example.anthony.todolists;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,10 +24,9 @@ public class ListDetail extends AppCompatActivity {
     TextView emptyListMessage;
     TextView titleListName;
     EditText inputText;
-    String todoListName;
     ListView mListView;
     FloatingActionButton fab;
-    Button backButton;
+    ImageButton backButton;
     ArrayList<String> mToDoItems;
     ArrayAdapter<String> mArrayAdapter;
 
@@ -34,8 +35,6 @@ public class ListDetail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_detail);
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
 
         initViews();
         setOnClickListeners();
@@ -47,7 +46,7 @@ public class ListDetail extends AppCompatActivity {
 
     private void initViews() {
         fab = (FloatingActionButton) findViewById(R.id.list_details_fab);
-        backButton = (Button) findViewById(R.id.list_details_back_button);
+        backButton = (ImageButton) findViewById(R.id.list_details_back_button);
         emptyListMessage = (TextView) findViewById(R.id.list_details_empty_list_notes);
         titleListName = (TextView) findViewById(R.id.list_details_header_todo_list_name);
         inputText = (EditText) findViewById(R.id.list_details_edit_text);
@@ -90,11 +89,10 @@ public class ListDetail extends AppCompatActivity {
     }
 
     private void setOnItemClickListener() {
-        // i might try to add another activity to actually edit the list item
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                setItemChecked((TextView) view, position);
             }
         });
     }
@@ -111,32 +109,68 @@ public class ListDetail extends AppCompatActivity {
         });
     }
 
+
+    /**
+     * Receives the data from the previous activity
+     */
     private void receiveIntentData() {
         Intent intent = getIntent();
-        //todoListName = intent.getStringExtra(MainActivity.TODO_LIST_NAME);
-        titleListName.setText(intent.getStringExtra(MainActivity.TODO_LIST_NAME));
+        titleListName.setText(intent.getStringExtra(MainActivity.TODO_LIST_NAME).toUpperCase());
         if (intent.hasExtra(MainActivity.TODO_LIST_ITEMS)) {
 
-            emptyListMessage.setVisibility(View.INVISIBLE);
-            mListView.setVisibility(View.VISIBLE);
-
             ArrayList<String> getTheListItems = intent.getStringArrayListExtra(MainActivity.TODO_LIST_ITEMS);
-            //mToDoItems = intent.getStringArrayListExtra("listItems");
-            //getTheListItems = intent.getStringArrayListExtra(MainActivity.TODO_LIST_ITEMS);
-            //TODO: clear all then add all to not dupe the list
             mToDoItems.addAll(getTheListItems);
             mArrayAdapter.notifyDataSetChanged();
 
+            //after lists is received, make the instructions go away, and have the list now visible
+            emptyListMessage.setVisibility(View.INVISIBLE);
+            mListView.setVisibility(View.VISIBLE);
         }
 
-        toDoListIndex = intent.getIntExtra(MainActivity.LIST_ITEMS_INDEX, -1);
+        toDoListIndex = intent.getIntExtra(MainActivity.LIST_ITEMS_INDEX, MainActivity.ERROR_INDEX);
     }
 
+
+    /**
+     * Sends the data back to the original activity
+     * thanks for the demo on this alex
+     */
     private void returnIntentData() {
         Intent intentToMain = new Intent();
         intentToMain.putStringArrayListExtra(MainActivity.TODO_LIST_ITEMS, mToDoItems);
         intentToMain.putExtra(MainActivity.LIST_ITEMS_INDEX, toDoListIndex);
         setResult(RESULT_OK, intentToMain);
         finish();
+    }
+
+
+    /**
+     * overrides back button on device if pressed
+     */
+    @Override
+    public void onBackPressed() {
+        returnIntentData();
+    }
+
+
+    /**
+     *
+     * @param item
+     * @param position
+     *
+     * one of the bonuses --- i did get some help from stackoverflow though
+     */
+    public void setItemChecked(TextView item, int position) {
+        if (!mListView.isItemChecked(position) &&
+                !((item.getPaintFlags() & Paint.STRIKE_THRU_TEXT_FLAG) > 0)) {
+            Log.i("[TAP]", "Strikethrough");
+            item.setPaintFlags(item.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            mListView.setItemChecked(position, true);
+        } else {
+            // http://stackoverflow.com/questions/18881817/removing-strikethrough-from-textview
+            Log.i("[TAP]", "Un-strike");
+            item.setPaintFlags(item.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+            mListView.setItemChecked(position, false);
+        }
     }
 }

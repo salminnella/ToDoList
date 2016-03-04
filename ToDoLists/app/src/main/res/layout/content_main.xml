@@ -10,35 +10,46 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.anthony.todolists.MainActivity"
-    tools:showIn="@layout/activity_main">
+    tools:showIn="@layout/activity_main"
+    android:background="#5C6983">
 
-    
+<LinearLayout
+    android:id="@+id/main_act_title_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_horizontal">
     <TextView
         android:id="@+id/main_act_title"
-        android:layout_width="match_parent"
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
         android:text="@string/title"
         android:textSize="22sp"
         android:textStyle="bold"
         android:gravity="center_vertical|center_horizontal"
+        android:background="@drawable/rounded_corners"
+        android:paddingBottom="2dp"
         />
+</LinearLayout>
 
     <TextView
         android:id="@+id/main_act_empty_list_notes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/main_act_empty_text"
-        android:layout_below="@id/main_act_title"
+        android:layout_below="@id/main_act_title_layout"
         android:visibility="visible"
         android:layout_marginTop="8dp"
         android:textAlignment="center"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true"
+        android:background="@drawable/rounded_corners"/>
 
     <ListView
         android:id="@+id/main_act_listview"
         android:layout_width="wrap_content"
         android:layout_height="430dp"
-        android:layout_below="@+id/main_act_title"></ListView>
+        android:layout_below="@+id/main_act_title_layout"
+        android:layout_marginTop="5dp"></ListView>
 
     <LinearLayout
         android:id="@+id/input_linear_layout"
@@ -46,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="10dp">
 
 
         <EditText
@@ -54,6 +65,8 @@
             android:layout_width="270dp"
             android:layout_height="45dp"
             android:hint="@string/new_list_hint"
-            />
+            android:background="@drawable/rounded_corners"
+            android:singleLine="true"
+            android:paddingLeft="10dp"/>
     </LinearLayout>
 </RelativeLayout>

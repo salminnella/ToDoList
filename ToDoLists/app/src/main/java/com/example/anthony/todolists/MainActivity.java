@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String TODO_LIST_NAME = "listName";
     public static final String TODO_LIST_ITEMS = "listItems";
     public static final String LIST_ITEMS_INDEX = "listIndex";
+    public static final int ERROR_INDEX = -1;
 
     int listIndex;
     ListView mListView;
@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton fab;
     EditText inputText;
     TextView emptyListMessage;
-    //TextView toDoListHeader;
 
     ArrayList<String> mTodoList;
     ArrayList<ArrayList<String>> mListItems;
@@ -39,11 +38,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         initViews();
-
         SetOnItemClickListener();
         SetOnItemLongClickListener();
 
@@ -55,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         inputText = (EditText) findViewById(R.id.main_act_edit_text);
         emptyListMessage = (TextView) findViewById(R.id.main_act_empty_list_notes);
 
-        //instantiate array list
+        //instantiate array lists
         mTodoList = new ArrayList<>(); // maybe set this to 40 or so to save mem on it doubling
         mListItems = new ArrayList<>();
 
@@ -73,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (inputText.getText().toString().equals("")) {
-                    Toast.makeText(MainActivity.this, "Please fill out the field to add something to the list", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, R.string.empty_editText_error_message, Toast.LENGTH_SHORT).show();
                 } else {
                     emptyListMessage.setVisibility(View.INVISIBLE);
                     mListView.setVisibility(View.VISIBLE);
@@ -96,16 +92,14 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // this will go to the next activity with the new list
                 String todoListName = mAdapter.getItem(position).toString();
+                listIndex = mTodoList.indexOf(todoListName);
+
                 Intent intent = new Intent(MainActivity.this, ListDetail.class);
                 intent.putExtra(TODO_LIST_NAME, todoListName);
-                listIndex = mTodoList.indexOf(todoListName);
                 intent.putExtra(LIST_ITEMS_INDEX, listIndex);
 
                 if (mTodoList.contains(todoListName)) {
                     if (!mListItems.isEmpty()) {
-                        //mListItems.contains(String.valueOf(listIndex))
-                        //mListItems.get(position).equals(listIndex)
-                        //position == listIndex
                         if (listIndex <= mListItems.size() - 1) {
                             ArrayList<String> todolist = mListItems.get(position);
                             intent.putExtra(TODO_LIST_ITEMS, todolist);
@@ -140,15 +134,11 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == SELECTED_TODO_LIST) {
             if (resultCode == RESULT_OK) {
                 ArrayList<String> receiveList = data.getStringArrayListExtra(TODO_LIST_ITEMS);
-                int listIndex = data.getIntExtra(LIST_ITEMS_INDEX, -1);  //TODO the listIndex isn't coming back correctly - wrong #
-
-                //mListItems.isEmpty()
-                //!mListItems.contains(listIndex)
+                int listIndex = data.getIntExtra(LIST_ITEMS_INDEX, ERROR_INDEX);
                 if (listIndex >= mListItems.size()) {
                     mListItems.add(receiveList);
                 } else {
                     mListItems.set(listIndex, receiveList);
-
                 }
             }
 
