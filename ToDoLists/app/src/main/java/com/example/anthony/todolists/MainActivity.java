@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 String positionName = (String) mAdapter.getItem(position);
                 mAdapter.remove(positionName);
-                mListItems.removeAll(mListItems);
+                mListItems.remove(position);
                 mAdapter.notifyDataSetChanged();
                 if (mTodoList.size() == 0) {
                     emptyListMessage.setVisibility(View.VISIBLE);
