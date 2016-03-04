@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     int listIndex;
     ListView mListView;
     ArrayAdapter mAdapter;
+    MyAdapter myAdapter; // i had wanted to have each list item a background of white
     FloatingActionButton fab;
     EditText inputText;
     TextView emptyListMessage;
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         //instantiate adapter
         mAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, mTodoList);
+        //myAdapter = new ArrayAdapter<String>(MainActivity.this, R.layout.list_item, mTodoList);
 
         //get the listview and set the adapter
         mListView.setAdapter(mAdapter);
@@ -98,6 +100,9 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra(TODO_LIST_NAME, todoListName);
                 intent.putExtra(LIST_ITEMS_INDEX, listIndex);
 
+                // i'm glad i fought with these if's last night because i understand better
+                // why the example alex worked through this morning is far better....
+                // just send it empty as long as i tell android its empty and not null
                 if (mTodoList.contains(todoListName)) {
                     if (!mListItems.isEmpty()) {
                         if (listIndex <= mListItems.size() - 1) {
