@@ -29,6 +29,7 @@ public class ListDetail extends AppCompatActivity {
     ImageButton backButton;
     ArrayList<String> mToDoItems;
     ArrayAdapter<String> mArrayAdapter;
+    ArrayList<String> receiveItemsFromMain;
 
 
     @Override
@@ -71,6 +72,7 @@ public class ListDetail extends AppCompatActivity {
                     Toast.makeText(ListDetail.this, R.string.empty_editText_error_message, Toast.LENGTH_SHORT).show();
                 } else {
                     emptyListMessage.setVisibility(View.INVISIBLE);
+                    mListView.setVisibility(View.VISIBLE);
                     String newToDoItem = inputText.getText().toString();
                     mToDoItems.add(newToDoItem);
                     mArrayAdapter.notifyDataSetChanged();
@@ -104,6 +106,15 @@ public class ListDetail extends AppCompatActivity {
                 String positionItem = mArrayAdapter.getItem(position);
                 mToDoItems.remove(positionItem);
                 mArrayAdapter.notifyDataSetChanged();
+
+                if (mToDoItems.size() == 0) {
+                    emptyListMessage.setVisibility(View.VISIBLE);
+                    mListView.setVisibility(View.INVISIBLE);
+                } else {
+
+                    emptyListMessage.setVisibility(View.INVISIBLE);
+                    mListView.setVisibility(View.VISIBLE);
+                }
                 return false;
             }
         });
@@ -116,16 +127,22 @@ public class ListDetail extends AppCompatActivity {
     private void receiveIntentData() {
         Intent intent = getIntent();
         titleListName.setText(intent.getStringExtra(MainActivity.TODO_LIST_NAME).toUpperCase());
-        if (intent.hasExtra(MainActivity.TODO_LIST_ITEMS)) {
+        //if (intent.hasExtra(MainActivity.TODO_LIST_ITEMS)) {
 
-            ArrayList<String> getTheListItems = intent.getStringArrayListExtra(MainActivity.TODO_LIST_ITEMS);
-            mToDoItems.addAll(getTheListItems);
+            receiveItemsFromMain = intent.getStringArrayListExtra(MainActivity.TODO_LIST_ITEMS);
+            mToDoItems.addAll(receiveItemsFromMain);
             mArrayAdapter.notifyDataSetChanged();
 
             //after lists is received, make the instructions go away, and have the list now visible
+        if (receiveItemsFromMain.size() == 0) {
+            emptyListMessage.setVisibility(View.VISIBLE);
+            mListView.setVisibility(View.INVISIBLE);
+        } else {
             emptyListMessage.setVisibility(View.INVISIBLE);
             mListView.setVisibility(View.VISIBLE);
         }
+
+        //}
 
         toDoListIndex = intent.getIntExtra(MainActivity.LIST_ITEMS_INDEX, MainActivity.ERROR_INDEX);
     }

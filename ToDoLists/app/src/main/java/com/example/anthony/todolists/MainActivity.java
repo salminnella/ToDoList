@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
                     String newTodo = inputText.getText().toString();
                     mAdapter.add(newTodo);
                     mAdapter.notifyDataSetChanged();
+                    mListItems.add(new ArrayList<String>());
 
                     inputText.setText("");
                 }
@@ -93,26 +94,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // this will go to the next activity with the new list
-                String todoListName = mAdapter.getItem(position).toString();
-                listIndex = mTodoList.indexOf(todoListName);
-
-                Intent intent = new Intent(MainActivity.this, ListDetail.class);
-                intent.putExtra(TODO_LIST_NAME, todoListName);
-                intent.putExtra(LIST_ITEMS_INDEX, listIndex);
-
-                // i'm glad i fought with these if's last night because i understand better
-                // why the example alex worked through this morning is far better....
-                // just send it empty as long as i tell android its empty and not null
-                if (mTodoList.contains(todoListName)) {
-                    if (!mListItems.isEmpty()) {
-                        if (listIndex <= mListItems.size() - 1) {
-                            ArrayList<String> todolist = mListItems.get(position);
-                            intent.putExtra(TODO_LIST_ITEMS, todolist);
-                        }
-                    }
-                }
-
-                startActivityForResult(intent, SELECTED_TODO_LIST);
+                stuffIntent(position);
             }
         });
     }
@@ -124,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 String positionName = (String) mAdapter.getItem(position);
                 mAdapter.remove(positionName);
+                mListItems.removeAll(mListItems);
                 mAdapter.notifyDataSetChanged();
                 if (mTodoList.size() == 0) {
                     emptyListMessage.setVisibility(View.VISIBLE);
@@ -148,5 +131,17 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
+    }
+
+    protected void stuffIntent(int itemPosition) {
+        String todoListName = mTodoList.get(itemPosition);
+
+        Intent intent = new Intent(MainActivity.this, ListDetail.class);
+        intent.putExtra(TODO_LIST_NAME, todoListName);
+        intent.putExtra(LIST_ITEMS_INDEX, itemPosition);
+        ArrayList<String> todolist = mListItems.get(itemPosition);
+        intent.putExtra(TODO_LIST_ITEMS, todolist);
+
+        startActivityForResult(intent, SELECTED_TODO_LIST);
     }
 }
