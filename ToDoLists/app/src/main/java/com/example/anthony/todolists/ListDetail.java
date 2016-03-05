@@ -18,7 +18,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class ListDetail extends AppCompatActivity {
-    public static final String TAG_DETAILS = "ListDetail";
 
     int toDoListIndex;
     TextView emptyListMessage;
@@ -54,7 +53,7 @@ public class ListDetail extends AppCompatActivity {
         mListView = (ListView) findViewById(R.id.list_details_listview);
 
         //instantiate arraylist
-        mToDoItems = new ArrayList<>(); // maybe set this to 40 or so to save mem from it doubling
+        mToDoItems = new ArrayList<>();
 
         //instantiate adapter
         mArrayAdapter = new ArrayAdapter<String>(ListDetail.this, android.R.layout.simple_list_item_1, mToDoItems);
@@ -90,6 +89,9 @@ public class ListDetail extends AppCompatActivity {
         });
     }
 
+    /**
+     * strikethrough on items list
+     */
     private void setOnItemClickListener() {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -127,7 +129,6 @@ public class ListDetail extends AppCompatActivity {
     private void receiveIntentData() {
         Intent intent = getIntent();
         titleListName.setText(intent.getStringExtra(MainActivity.TODO_LIST_NAME).toUpperCase());
-        //if (intent.hasExtra(MainActivity.TODO_LIST_ITEMS)) {
 
             receiveItemsFromMain = intent.getStringArrayListExtra(MainActivity.TODO_LIST_ITEMS);
             mToDoItems.addAll(receiveItemsFromMain);
@@ -141,9 +142,6 @@ public class ListDetail extends AppCompatActivity {
             emptyListMessage.setVisibility(View.INVISIBLE);
             mListView.setVisibility(View.VISIBLE);
         }
-
-        //}
-
         toDoListIndex = intent.getIntExtra(MainActivity.LIST_ITEMS_INDEX, MainActivity.ERROR_INDEX);
     }
 

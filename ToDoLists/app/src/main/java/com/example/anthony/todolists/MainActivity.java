@@ -16,14 +16,12 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG_MAIN = "MainActivity";
     private static final int SELECTED_TODO_LIST = 10;
     public static final String TODO_LIST_NAME = "listName";
     public static final String TODO_LIST_ITEMS = "listItems";
     public static final String LIST_ITEMS_INDEX = "listIndex";
     public static final int ERROR_INDEX = -1;
 
-    int listIndex;
     ListView mListView;
     ArrayAdapter mAdapter;
     MyAdapter myAdapter; // i had wanted to have each list item a background of white
