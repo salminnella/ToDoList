@@ -176,6 +176,10 @@ public class ListDetail extends AppCompatActivity {
      * @param position
      *
      * one of the bonuses --- i did get some help from stackoverflow though
+     * i do need to thank bill for networking with the new york class on this one.
+     * mike got me started, found some info on stackoverflow, and then i saw a posting to the android - fundamentals channel with the rest
+     *
+     * if you do give points for this method, i don't deserve them because this wasn't my work.
      */
     public void setItemChecked(TextView item, int position) {
         if (!mListView.isItemChecked(position) &&
