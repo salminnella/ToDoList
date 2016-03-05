@@ -14,14 +14,14 @@ Paper ProtyType (redrawing this for readability)
 
 Main Activity (home)
 
-![alt tag](https://cloud.githubusercontent.com/assets/16617555/13549583/a28a7e90-e2bd-11e5-91c9-91dc3f7545cd.png)
+![alt tag](https://cloud.githubusercontent.com/assets/16617555/13550148/c0b8768e-e2cb-11e5-9116-29559def3c30.jpg)
 
 <br><br>
 <br><br>
 
 Main with 2 list
 
-![alt tag](https://cloud.githubusercontent.com/assets/16617555/13549584/a28ce20c-e2bd-11e5-8bd4-776941506ee3.png)
+![alt tag](https://cloud.githubusercontent.com/assets/16617555/13550149/c0b99528-e2cb-11e5-95dd-b51e7e568832.jpg)
 
 
 <br><br>
@@ -30,7 +30,7 @@ Main with 2 list
 Todo List items activity.
 
 
-![alt tag](https://cloud.githubusercontent.com/assets/16617555/13549585/a28d43fa-e2bd-11e5-9a79-5d1da7a85697.png)
+![alt tag](https://cloud.githubusercontent.com/assets/16617555/13550151/c6d454e8-e2cb-11e5-8476-f7474eb870ca.png)
 
 
 <br><br>
@@ -40,7 +40,7 @@ Todo List items activity.
 Todo List items activity with some items
 
 
-![alt tag](https://cloud.githubusercontent.com/assets/16617555/13549586/a2a2a9fc-e2bd-11e5-9818-9133b2351383.png)
+![alt tag](https://cloud.githubusercontent.com/assets/16617555/13550152/c91add62-e2cb-11e5-8093-40d9722b6cc8.jpg)
 
 
 
