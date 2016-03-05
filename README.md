@@ -11,31 +11,21 @@ Paper ProtyType (redrawing this for readability)
 
 <br><br>
 <br><br>
-<br><br>
-
-
-
-
 
 Main Activity (home)
 
 ![alt tag](https://cloud.githubusercontent.com/assets/16617555/13549583/a28a7e90-e2bd-11e5-91c9-91dc3f7545cd.png)
 
-
-
-
-
-
+<br><br>
+<br><br>
 
 Main with 2 list
 
 ![alt tag](https://cloud.githubusercontent.com/assets/16617555/13549584/a28ce20c-e2bd-11e5-8bd4-776941506ee3.png)
 
 
-
-
-
-
+<br><br>
+<br><br>
 
 Todo List items activity.
 
@@ -43,9 +33,8 @@ Todo List items activity.
 ![alt tag](https://cloud.githubusercontent.com/assets/16617555/13549585/a28d43fa-e2bd-11e5-9a79-5d1da7a85697.png)
 
 
-
-
-
+<br><br>
+<br><br>
 
 
 Todo List items activity with some items
